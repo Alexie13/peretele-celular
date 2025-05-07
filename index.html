@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Peretele celular, vacuolele și incluziunile ergastice - Biogenius Academy</title>
+    <style>
+        :root {
+            --primary-color: #00e6c0;
+            --secondary-color: #00b3a1;
+            --background-color: #021726;
+            --dark-color: #01111b;
+            --text-color: #ffffff;
+            --sidebar-width: 250px;
+            --header-height: 60px;
+            --card-background: rgba(0, 230, 192, 0.1);
+            --card-border: rgba(0, 230, 192, 0.3);
+            --orange-neon: #FF9500;
+            --orange-dark: #FF5E3A;
+            --yellow-neon: #FFD60A;
+            --yellow-dark: #FFC107;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 100%;
+            min-height: 100vh;
+            position: relative;
+            transition: margin-left 0.4s ease;
+        }
+
+        /* Header Styles */
+        header {
+            height: var(--header-height);
+            background-color: var(--dark-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 20px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 10;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo h1 {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .logo svg {
+            width: 40px;
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        /* Main Content Styles */
+        .main-content {
+            margin-top: var(--header-height);
+            padding: 20px;
+            transition: margin-left 0.4s ease;
+            width: 100%;
+            max-width: 100%;
+            box-sizing: border-box;
+            overflow-x: hidden;
+        }
+
+        .page-title {
+            margin-bottom: 30px;
+            position: relative;
+            padding-bottom: 10px;
+            text-align: center;
+            color: var(--primary-color);
+            margin-top: 30px;
+            font-size: 2.2rem;
+        }
+
+        .page-title::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background-color: var(--primary-color);
+        }
+
+        .content-section {
+            background-color: var(--card-background);
+            border-radius: 10px;
+            border: 1px solid var(--card-border);
+            padding: 30px;
+            margin-bottom: 30px;
+            width: 100%;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .content-section h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 10px;
+            display: inline-block;
+        }
+
+        .content-section p {
+            margin-bottom: 15px;
+            line-height: 1.6;
+            text-align: justify;
+        }
+
+        .titlu-2 {
+            padding-left: 10px;
+            font-size: 1.6rem;
+            color: var(--primary-color);
+            margin: 30px 0 20px 0;
+        }
+
+        /* Toggle Content Styles */
+        .title-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: rgba(0, 230, 192, 0.2);
+            padding: 10px 20px;
+            border-radius: 10px 10px 0 0;
+            border: 1px solid var(--card-border);
+            margin-top: 30px;
+        }
+
+        .title {
+            margin: 0;
+            font-size: 1.4rem;
+            color: var(--primary-color);
+            text-align: center;
+            width: 100%;
+        }
+
+        .toggle-btn {
+            background-color: var(--primary-color);
+            color: var(--dark-color);
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            line-height: 1;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-btn:hover {
+            background-color: var(--secondary-color);
+            transform: scale(1.1);
+        }
+
+        .content-box {
+            border: 1px solid var(--card-border);
+            border-top: none;
+            padding: 20px;
+            border-radius: 0 0 10px 10px;
+            background-color: rgba(0, 230, 192, 0.05);
+        }
+
+        .image-placeholder {
+            width: 100%;
+            position: relative;
+            padding-bottom: 56.25%; /* Raport 16:9, poți ajusta în funcție de nevoie */
+            background-color: #ffffff; /* Fundal alb pentru container */
+            border: 2px dashed var(--primary-color);
+            margin: 20px 0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .image-placeholder img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* Păstrează imaginea completă fără tăieri */
+            background-color: #ffffff; /* Fundal alb pentru zonele neacoperite de imagine */
+            display: block;
+        }
+
+        .poza {
+            padding: 25px 0;
+            text-align: center;
+        }
+
+        .poza-2 {
+            padding: 15px 0;
+            text-align: center;
+        }
+
+        .home-button {
+            position: fixed;
+            top: 80px;
+            left: 20px;
+            background-color: var(--primary-color);
+            color: var(--dark-color);
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            z-index: 9;
+            transition: all 0.3s ease;
+        }
+
+        .home-button:hover {
+            transform: scale(1.1);
+            background-color: var(--secondary-color);
+        }
+
+        .home-icon {
+            width: 24px;
+            height: 24px;
+            fill: var(--dark-color);
+        }
+
+        /* Brain Decoration */
+        .brain-decoration {
+            position: fixed;
+            bottom: -100px;
+            right: -100px;
+            width: 300px;
+            height: 300px;
+            opacity: 0.1;
+            z-index: -1;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2300e6c0'%3E%3Cpath d='M12 2c1.9 0 3.6.8 4.8 2 1.2 1.2 2 2.9 2 4.8 0 3.2-2.2 5.8-5.2 6.6v.6c0 1.1-.9 2-2 2h-.4c-1.1 0-2-.9-2-2v-.6C6.2 14.6 4 12 4 8.8c0-1.9.8-3.6 2-4.8C7.4 2.8 9.1 2 11 2h1zm0 2c-1.3 0-2.5.5-3.4 1.4-.9.9-1.4 2.1-1.4 3.4 0 2.2 1.5 4.1 3.6 4.7.2.1.4.3.4.5v1c0 .6.4 1 1 1h.8c.6 0 1-.4 1-1v-1c0-.2.2-.4.4-.5 2.1-.6 3.6-2.5 3.6-4.7 0-1.3-.5-2.5-1.4-3.4-.9-.9-2.1-1.4-3.4-1.4h-1z'/%3E%3C/svg%3E");
+            background-size: cover;
+            background-repeat: no-repeat;
+            transform: rotate(45deg);
+        }
+
+        /* Responsiveness */
+        @media (max-width: 768px) {
+            body, html {
+                overflow-x: hidden;
+                width: 100%;
+                position: relative;
+            }
+            
+            .container {
+                width: 100%;
+                overflow-x: hidden;
+            }
+            
+            .content-section {
+                padding: 20px 15px;
+            }
+            
+            .page-title {
+                font-size: 1.8rem;
+            }
+            
+            .home-button {
+                width: 40px;
+                height: 40px;
+                top: 70px;
+                left: 10px;
+            }
+            
+            .home-icon {
+                width: 20px;
+                height: 20px;
+            }
+            
+            .titlu-2 {
+                font-size: 1.4rem;
+                padding-left: 5px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .content-section {
+                padding: 15px 10px;
+            }
+
+            .logo h1 {
+                font-size: 0.9rem;
+            }
+            
+            .main-content {
+                padding: 15px 10px;
+            }
+            
+            .page-title {
+                font-size: 1.5rem;
+                margin-top: 20px;
+            }
+            
+            .title-container {
+                padding: 8px 15px;
+            }
+            
+            .title {
+                font-size: 1.2rem;
+            }
+        }
+
+        /* Header pentru versiunea mobilă */
+        @media (max-width: 360px) {
+            header {
+                height: 50px;
+                padding: 0 10px;
+            }
+            
+            .logo h1 {
+                font-size: 0.9rem;
+                padding-left: 35px;
+                white-space: nowrap;
+            }
+            
+            .logo svg {
+                width: 25px;
+                height: 25px;
+            }
+            
+            .home-button {
+                width: 26px;
+                height: 26px;
+                padding: 5px;
+            }
+            
+            .home-button i {
+                font-size: 0.7rem;
+            }
+            
+            .main-content {
+                margin-top: 60px;
+                padding: 8px;
+            }
+            
+            .content-section {
+                padding: 12px;
+            }
+            
+            .page-title {
+                font-size: 1.4rem;
+            }
+            
+            .section-title {
+                font-size: 1.2rem;
+            }
+            
+            p, li {
+                font-size: 0.9rem;
+            }
+        }
+        
+        /* Stiluri specifice acestei pagini */
+        .list-style {
+            margin-bottom: 15px;
+            line-height: 1.6;
+            text-align: justify;
+            padding-left: 30px;
+        }
+
+        .list-item {
+            margin-bottom: 10px;
+            line-height: 1.6;
+            text-align: justify;
+            margin-left: 30px;
+        }
+
+        .titlu-3 {
+            color: var(--primary-color);
+            margin: 15px 0 10px 0;
+            font-size: 1.3rem;
+        }
+
+        h3 {
+            color: var(--primary-color);
+            margin: 15px 0 10px 0;
+            font-size: 1.3rem;
+        }
+
+        .indent {
+            margin-left: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="brain-decoration"></div>
+    
+    <!-- Header -->
+    <header>
+        <div style="width: 30px;"></div>
+        <div class="logo">
+            <svg width="40" height="40" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="45" fill="none" stroke="#00e6c0" stroke-width="2" />
+                <path d="M30,50 Q40,30 50,50 Q60,70 70,50" fill="none" stroke="#00e6c0" stroke-width="2" />
+                <path d="M30,40 Q50,20 70,40" fill="none" stroke="#00e6c0" stroke-width="2" />
+                <path d="M30,60 Q50,80 70,60" fill="none" stroke="#00e6c0" stroke-width="2" />
+                <path d="M45,35 Q50,30 55,35" fill="none" stroke="#00e6c0" stroke-width="2" />
+                <path d="M45,65 Q50,70 55,65" fill="none" stroke="#00e6c0" stroke-width="2" />
+            </svg>
+            <h1>BIOGENIUS ACADEMY</h1>
+        </div>
+        <div style="width: 30px;"></div>
+    </header>
+
+    <!-- Back Button -->
+    <a href="https://alexie13.github.io/citologie/#sectiunea_dorita" class="home-button">
+        <svg class="home-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+        </svg>
+    </a>
+
+    <!-- Main Content -->
+    <div class="container" id="container">
+        <div class="main-content">
+            <h1 class="page-title">Peretele celular, vacuolele și incluziunile ergastice</h1>
+            
+            <!-- Secțiunea Introducere -->
+            <div class="content-section">
+                <h2 class="subtitlu">Introducere</h2>
+                <p>În celulele vegetale, componentele neprotoplasmatice precum peretele celular, vacuolele și inclusiunile ergastice sunt esențiale pentru menținerea structurii, protecția și depozitarea resurselor metabolice.</p>
+                
+                <p class="list-item"><b>• Peretele celular</b> este o structură rigidă, alcătuită în mare parte din celuloză, care oferă rezistență mecanică și determină forma celulei, protejând-o împotriva factorilor externi.</p>
+                
+                <p class="list-item"><b>• Vacuolele</b> sunt compartimente mari, pline de lichid, care stochează apă, nutrienți, deșeuri și alte substanțe vitale. Ele contribuie semnificativ la menținerea turgorului celular și, implicit, la stabilitatea structurală a plantei.</p>
+                
+                <p class="list-item"><b>• Incluziunile ergastice</b> reprezintă rezerve metabolice (de exemplu, amidon, uleiuri sau proteine) care se acumulează în citoplasmă, jucând un rol important în suportarea creșterii și dezvoltării plantei.</p>
+                
+                <p>Aceste elemente lucrează împreună pentru a conferi celulelor vegetale atât o structură robustă, cât și resursele necesare pentru funcționarea optimă și adaptarea la mediul înconjurător.</p>
+            </div>
+
+            <!-- Secțiunea Peretele celular -->
+            <div class="content-section">
+                <div class="titlu-2"><b>1) Peretele celular:</b></div>
+                <p><b>Peretele celular</b> este o structură esențială care învelește celulele vegetale, oferind suport mecanic, protecție și contribuind la forma și integritatea acestora. Nu este un înveliș static, ci o construcție dinamică, compusă dintr-o rețea complexă de polizaharide și proteine, ce permite celulei să se adapteze la schimbările din mediul înconjurător. Iată o prezentare detaliată a peretelui celular:</p>
+                
+                <p><b>• Structură și Compoziție:</b></p>
+                <p class="indent"><b>• Celuloză:</b> Principala componentă a peretelui celular, celuloza este un polizaharid format din lanțuri lungi de glucoză, organizate în fibrile robuste. Aceste fibrile se asamblează în rețele dense, conferind rezistență și rigiditate peretelui.</p>
+                
+                <p class="indent"><b>• Hemiceluloze și Pectine:</b> Hemicelulozele sunt polizaharide mai scurte care se leagă de fibrilele de celuloză, ajutând la formarea unei rețele coezive. Pectinele, pe de altă parte, sunt polizaharide cu proprietăți gelifiante, contribuind la menținerea unui mediu poros și hidratat în perete și facilitând procesul de creștere celulară.</p>
+                
+                <p class="indent"><b>• Proteine și Enzime:</b> Proteinele structurale și enzimele din peretele celular contribuie la remodelarea sa continuă, esențială pentru dezvoltarea, repararea și adaptarea celulei. Aceste proteine pot fi implicate în procesele de sinalizare celulară și în interacțiunea celulă-celulă (prin intermediul plasmodesmelor).</p>
+                
+                <p class="indent"><b>• Straturi Specializate:</b> În funcție de stadiul de dezvoltare și de tipul celular, peretele poate avea un strat primar flexibil, care permite creșterea și expansiunea celulei, și un strat secundar, mai rigid, care oferă protecție sporită și rezistență mecanică.</p>
+                
+                <div class="poza">
+                    <div class="image-placeholder"><img src="lamela.jpeg" alt="Lamela mediană între pereții celulari"></div>
+                </div>
+                
+                <p>Pereții celulari ai plantelor sunt alcătuiți dintr-o varietate de polizaharide și proteine. Pe lângă celuloză, elementul principal, se regăsesc frecvent și hemiceluloza și pectina, așa cum este ilustrat și în diagrama de mai sus. Strat intermediar, numit lamela și prezentat în partea superioară a diagramei, este un strat lipicios ce contribuie la menținerea coeziunii între pereții celulelor vegetale adiacente.</p>
+            </div>
+            
+            <!-- Secțiunea Vacuolele -->
+            <div class="content-section">
+                <div class="titlu-2"><b>2) Vacuolele:</b></div>
+                <p>Celulele vegetale se remarcă prin prezența unui organit asemănător lizozomilor, numit vacuolă. Această vacuolă centrală de dimensiuni mari colectează și depozitează apă, deșeuri și alte substanțe, izolând în același timp materiale potențial periculoase. De asemenea, ea conține enzime care pot descompune macromolecule și componente celulare, asemănător funcțiilor unui lizozom.</p>
+                
+                <div class="poza">
+                    <div class="image-placeholder"><img src="avocado.jpeg" alt="Vacuolă din celulă vegetală"></div>
+                </div>
+                
+                <p>În plus, vacuolele joacă un rol esențial în reglarea echilibrului hidric al celulei și pot servi ca depozit pentru compuși specifici, precum toxinele și pigmenții, contribuind astfel la diversitatea funcțională a celulelor vegetale.</p>
+            </div>
+            
+            <!-- Secțiunea Incluziuni ergastice -->
+            <div class="content-section">
+                <div class="titlu-2"><b>3) Incluziuni ergastice:</b></div>
+                <p><b>Incluziunile ergastice</b> sunt depozite intracelulare specifice celulelor vegetale, alcătuite din materiale organice sau anorganice (precum amidon, lipide, proteine sau pigmenți) care nu fac parte din protoplasmă activă. Aceste rezervoare servesc drept surse de energie și nutrienți, fiind esențiale pentru susținerea proceselor metabolice ale celulei.</p>
+                
+                <div class="poza">
+                    <div class="image-placeholder"><img src="granuledezimogen.jpeg" alt="Granule ergastice"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Selectează toate butoanele de expandare
+            const toggleBtns = document.querySelectorAll('.toggle-btn');
+            
+            // Adaugă un event listener pentru fiecare buton
+            toggleBtns.forEach(function(btn, index) {
+                // Dă fiecărui set de elemente un ID unic
+                const contentId = 'content-box-' + index;
+                
+                // Obține caseta de conținut corespunzătoare
+                const contentBox = btn.closest('.title-container').nextElementSibling;
+                
+                // Adaugă ID la caseta de conținut
+                contentBox.id = contentId;
+                
+                // Adaugă evenimentul de click
+                btn.addEventListener('click', function() {
+                    const targetBox = document.getElementById(contentId);
+                    
+                    if (targetBox.style.display === 'none') {
+                        targetBox.style.display = 'block';
+                        btn.textContent = '−';
+                    } else {
+                        targetBox.style.display = 'none';
+                        btn.textContent = '+';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
